@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, Fragment} from "react";
 import jwt_decode from "jwt-decode";
 import { Table, Badge, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -73,61 +73,55 @@ function Dashboard() {
 		}
 
 
-  return (
-	  
-    <div>
-	  
-      <h1 style={{textAlign: 'center'}}><Badge bg="success">Dashboard</Badge></h1>
-      <h6 style={{textAlign: 'center'}}><Badge  bg="primary">Logged in as {from}</Badge></h6>
-      <br />
+	  return (
 
-    <form className="form-inline" onSubmit={sendMessage}>
-        <h3>Compose Message</h3>
-        <br/>
-        <div className="form-group  col-4">
-        <input type="email" className="form-control" placeholder="to" value={to} onChange={(e)=>setTo(e.target.value)}/>
-        <br/>
-        <textarea type="text" className="form-control" placeholder="content" value={content} onChange={(e)=>setContent(e.target.value)}/>
-        <br/>
-        <input className="form-control btn btn-secondary" type="submit" value="Send"/>
-        </div>
-    </form>
-
-    <br/>
-		
-    <div>
-        <h2>List Messages</h2>
-        <br />
-        <Button variant="primary" size="sm" onClick={checkInbox}> Fetch from Inbox</Button>
-        <br />       
-        <br />    
-		
-        <Table striped bordered hover>
-        <thead>
-            <tr>
-                <td>From</td>
-                <td>Content</td>
-                <td>Actions</td>
-            </tr>
-        </thead>
-        <tbody>
-            {messages.map((message,index)=>{
-                return(
-                    <tr key={index}>
-                        <td>{message.from}</td>
-                        <td style={{whiteSpace: "pre-wrap"}}>{message.content}</td>
-                        <td>
-                            <Button variant="secondary" onClick={()=>forwardMessage(message.from, message.content)}><MdForwardToInbox/></Button>
-                        </td>
-                    </tr>
-                )
-            })}
-        </tbody>
-        </Table>
-    </div>
-
-    </div>
-  );
+	    <Fragment>
+	      <h1 style={{textAlign: 'center'}}><Badge bg="success">Dashboard</Badge></h1>
+	      <h6 style={{textAlign: 'center'}}><Badge  bg="primary">Logged in as {from}</Badge></h6>
+	      <br />
+	    <form className="form-inline" onSubmit={sendMessage}>
+		<h3>Compose Message</h3>
+		<br/>
+		<div className="form-group  col-4">
+		<input type="email" className="form-control" placeholder="to" value={to} onChange={(e)=>setTo(e.target.value)}/>
+		<br/>
+		<textarea type="text" className="form-control" placeholder="content" value={content} onChange={(e)=>setContent(e.target.value)}/>
+		<br/>
+		<input className="form-control btn btn-secondary" type="submit" value="Send"/>
+		</div>
+	    </form>
+	    <br/>
+	    <div>
+		<h2>List Messages</h2>
+		<br />
+		<Button variant="primary" size="sm" onClick={checkInbox}> Fetch from Inbox</Button>
+		<br />       
+		<br />    
+		<Table striped bordered hover>
+		<thead>
+		    <tr>
+			<td>From</td>
+			<td>Content</td>
+			<td>Actions</td>
+		    </tr>
+		</thead>
+		<tbody>
+		    {messages.map((message,index)=>{
+			return(
+			    <tr key={index}>
+				<td>{message.from}</td>
+				<td style={{whiteSpace: "pre-wrap"}}>{message.content}</td>
+				<td>
+				    <Button variant="secondary" onClick={()=>forwardMessage(message.from, message.content)}><MdForwardToInbox/></Button>
+				</td>
+			    </tr>
+			)
+		    })}
+		</tbody>
+		</Table>
+	    </div>
+	    </Fragment>
+	  );
 }
 
 export default Dashboard;
